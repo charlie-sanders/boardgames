@@ -1,0 +1,2 @@
+git+git://github.com/qorrect/stable-baselines3.git@c6a736e1a68bc191aca813757096b49b2b6eb4b9#egg=stable_baselines3
+gym==0.18.0
