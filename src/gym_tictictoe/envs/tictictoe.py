@@ -137,7 +137,7 @@ class TicTicToe(gym.Env):
             ret['info'] = {'error': msg}
             ret['done'] = True
         else:
-            ret['reward'] = DefaultScores.move
+            ret['reward'] = DefaultScores.legal_move
             ret['done'] = False
 
             # O, 0 is our O
