@@ -20,10 +20,7 @@ class TrainedAgent(Agent):
 class RandomAgent(Agent):
     @enforce_types
     def predict(self, observations: List[Number], env: gym.Env) -> int:
-        ret = env.get_valid_action_indices(1, env.get_previous_action(1))
-        if not len(ret):
-            return -1
-        return secrets.choice(ret)
+        return env._get_valid_cpu_action(observations)
 
 
 class HumanAgent(Agent):
@@ -32,25 +29,20 @@ class HumanAgent(Agent):
         env.render()
         is_done = False
         idx = 0
-        previous_action = env.get_previous_action(1)
-        valid = env.get_valid_action_indices(1, previous_action)
+        valid = env.get_valid_action_indices()
         if len(valid) == 0:
             print('GAME OVER YOOU PROBABLY LOST')
             return 0
 
-        msg = f"\n\nEnter the 0-9 index of where to place the piece: ({valid}) - was {previous_action}"
+        msg = f"\n\nEnter the 0-9 index of where to place the piece: ({valid})"
         while not is_done:
             idx = int(input(msg))
-            previous_action = env.get_previous_action(1)
-            valid: List = env.get_valid_action_indices(1, previous_action)
+            valid: List = env.get_valid_action_indices()
 
-            if previous_action == -1:
+            try:
+                valid.index(idx)
                 is_done = True
-            else:
-                try:
-                    valid.index(idx)
-                    is_done = True
-                except:
-                    is_done = False
-                    msg = f"THAT({idx}) WAS INVALID({valid}) was({previous_action}), PLEASE TRY AGAIN: Enter the 0-9 index of where to place the piece: "
+            except:
+                is_done = False
+                msg = f"THAT({idx}) WAS INVALID({valid}), PLEASE TRY AGAIN: Enter the 0-9 index of where to place the piece: "
         return idx

@@ -1,3 +1,3 @@
 from .isolation import Isolation
-from .isolation import Scores
+from game_engine import DefaultScores
 

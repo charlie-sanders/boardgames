@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from numbers import Number
 from typing import Tuple
 
@@ -33,10 +32,3 @@ def get_offset_from_tuple(m: Tuple[int, int], prev_offset: Number = 0) -> Number
     return ret
 
 
-@dataclass
-class Scores:
-    win: int = 10
-    draw: int = 0
-    loss: int = -10
-    illegal_move: int = -1
-    legal_move: int = 1

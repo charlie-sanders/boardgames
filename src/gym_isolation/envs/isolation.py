@@ -1,5 +1,4 @@
 import secrets
-import sys
 from pprint import pprint
 from typing import List, Dict, Optional
 
@@ -7,7 +6,7 @@ import gym
 import numpy as np
 from gym import spaces
 
-from gym_isolation.agents import Agent
+from game_engine import DefaultScores, Agent
 from gym_isolation.engine import *
 
 VERBOSE = False
@@ -64,6 +63,8 @@ class Isolation(gym.Env):
     @enforce_types
     def step(self, _action: np.int64) -> Tuple[np.array, float, bool, Dict]:
         action = _action
+
+
         # print(f'step(action={action})')
         # self.render()
         # RETURN VALUES
@@ -75,12 +76,13 @@ class Isolation(gym.Env):
             'info': {}
         }
 
+
         player = 0
         offset = action
         self.current_player = player
         if not self._check_move(player, offset, self.previous_action):
             ret['info'] = {'error': f'INVALID MOVE {self.previous_action} to {offset}, board is {self.board[offset]}'}
-            ret['reward'] = Scores.illegal_move
+            ret['reward'] = DefaultScores.illegal_move
             ret['done'] = False
             pprint(ret)
             # sys.exit()
@@ -111,16 +113,16 @@ class Isolation(gym.Env):
             # self.render()
             # Our player
             if winner == -1:
-                ret['reward'] = Scores.draw
+                ret['reward'] = DefaultScores.draw
             elif winner == 0:
-                ret['reward'] = Scores.win
+                ret['reward'] = DefaultScores.win
             else:
-                ret['reward'] = Scores.loss
+                ret['reward'] = DefaultScores.loss
             ret['info'] = {'error': msg}
             ret['done'] = True
         else:
             if ret['reward'] is None or ret['reward'] == 0:
-                ret['reward'] = Scores.legal_move
+                ret['reward'] = DefaultScores.legal_move
                 ret['done'] = False
             else:
                 pass

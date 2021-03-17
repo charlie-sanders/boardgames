@@ -1,8 +1,11 @@
+from abc import ABC
 from collections import defaultdict
+from dataclasses import dataclass
 from numbers import Number
 from typing import Any, Optional
 
 import gym
+import numpy as np
 from enforce_typing import enforce_types
 from stable_baselines3.common.callbacks import EvalCallback
 from stable_baselines3.common.evaluation import evaluate_policy
@@ -82,3 +85,17 @@ class GameEngine(object):
         print(str(all_rewards[scores.legal_move]) + ' Legal Moves')
         mean_reward, std_reward = evaluate_policy(model, evaluate_env, n_eval_episodes=1)
         print(f"mean_reward={mean_reward:.2f} +/- {std_reward}")
+
+
+@dataclass
+class DefaultScores:
+    win: int = 10
+    draw: int = 0
+    loss: int = -10
+    illegal_move: int = -1
+    legal_move: int = 1
+
+
+class Agent(ABC):
+    def predict(self, observations: np.array, env: gym.Env) -> int:
+        raise NotImplementedError('predict Not implemented')
