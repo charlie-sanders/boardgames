@@ -175,12 +175,22 @@ class Isolation(gym.Env):
         winner = 0 if o_count > x_count else 1
         # print(f'O_COUNT={o_count},X_COUNT={x_count},winner={winner}')
         # Now check if there are no more valid movies
-        ret |= self.get_random_valid_action(0) is None
-        ret |= self.get_random_valid_action(1) is None
+        p1_out_of_moves = self.get_random_valid_action(0) is None
+        p2_out_of_moves = self.get_random_valid_action(1) is None
 
         # Draw
-        if ret and o_count == x_count:
-            winner = -1
+        if p1_out_of_moves or p2_out_of_moves:
+            if p1_out_of_moves and not p2_out_of_moves:
+                winner = 1
+                ret = True
+            elif p2_out_of_moves and not p1_out_of_moves:
+                winner = 0
+                ret = True
+            elif o_count == x_count:
+                winner = -1
+                ret = True
+            else:
+                ret = True
 
         return ret, winner, o_count, x_count
 
