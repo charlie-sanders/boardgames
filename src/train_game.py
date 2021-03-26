@@ -30,11 +30,11 @@ EVAL_FREQ = 10_000
 EVAL_EPISODES = 50
 LOGDIR = "train_game_log_dir"
 
-SAVE_PATH = f'./{ENV_NAME}_save_{TIMESTEPS}.zip'
+SAVE_PATH = f'./{ENV_NAME}_save_{TIMESTEPS}'
 print(f'Loading and Saving to/from {SAVE_PATH}')
-LOAD_PATH = SAVE_PATH
+# LOAD_PATH = SAVE_PATH
 # Force training
-# LOAD_PATH = None
+LOAD_PATH = None
 
 games = {
     ISO_ENV: {
@@ -67,16 +67,21 @@ model = engine.train_or_load(randomAgent(),
                              save_path=SAVE_PATH,
                              load_path=LOAD_PATH)
 engine.evaluate(model, randomAgent(), ENV_NAME=ENV_NAME, scores=DefaultScores)
-# engine.evaluate(model, humanAgent(), ENV_NAME=ENV_NAME, scores=DefaultScores)
 
-# Now train it again with a new save_path to indicate training it against itself
-engine.train_or_load(trainedAgent(model),
-                     PPO,
-                     env_name=ENV_NAME,
-                     log_path=LOGDIR + '_trained_twice',
-                     eval_freq=EVAL_FREQ,
-                     n_eval_episodes=EVAL_EPISODES,
-                     learning_rate=LEARNING_RATE * 0.01,
-                     timesteps=TIMESTEPS * 2,
-                     save_path=SAVE_PATH + '_trained_twice',
-                     load_path=None)
+# After training the first time , start training it against itself
+# new_model = model
+# for i in range(0, 5):
+#     print(f'Training {i}th iteration')
+#     new_model = engine.train_or_load(trainedAgent(new_model),
+#                                      PPO,
+#                                      env_name=ENV_NAME,
+#                                      log_path=LOGDIR,
+#                                      eval_freq=EVAL_FREQ,
+#                                      n_eval_episodes=EVAL_EPISODES,
+#                                      learning_rate=LEARNING_RATE,
+#                                      timesteps=TIMESTEPS,
+#                                      save_path=SAVE_PATH,
+#                                      load_path=None)
+
+engine.evaluate(model, randomAgent(), ENV_NAME=ENV_NAME, scores=DefaultScores)
+engine.evaluate(model, humanAgent(), ENV_NAME=ENV_NAME, scores=DefaultScores)

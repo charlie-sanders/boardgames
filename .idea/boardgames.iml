@@ -6,6 +6,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="mairlyn" />
   </component>
   <component name="PyNamespacePackagesService">
     <option name="namespacePackageFolders">
