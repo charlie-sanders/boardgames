@@ -20,7 +20,7 @@ TTT_ENV = 'tictictoe-v0'
 #
 # # # # # # #
 
-ENV_NAME = ISO_ENV
+ENV_NAME = TTT_ENV 
 
 RL_ALGO = PPO
 TIMESTEPS = 100_000
