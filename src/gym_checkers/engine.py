@@ -2,12 +2,22 @@ from numbers import Number
 from typing import Tuple
 
 from enforce_typing import enforce_types
+from dataclasses import dataclass
 
 ROWS = 8
 COLS = 8
 N_ACTIONS = ROWS * COLS
 VERBOSE = 0
 
+
+@dataclass
+class CheckersScores:
+    win: int = 10
+    draw: int = 0
+    loss: int = -10
+    illegal_move: int = -1
+    legal_move: int = 1
+    capture_move: int = 4
 
 @enforce_types
 def tuple_subtract(t1: Tuple[int, int], t2: Tuple[int, int]) -> Tuple[int, int]:

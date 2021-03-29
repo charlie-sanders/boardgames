@@ -20,10 +20,7 @@ class TrainedAgent(Agent):
 class RandomAgent(Agent):
     @enforce_types
     def predict(self, observations: List[Number], env: gym.Env) -> int:
-        ret = env.get_valid_action_indices(1, env.get_previous_action(1))
-        if not len(ret):
-            return -1
-        return secrets.choice(ret)
+        return env.get_random_valid_action(2)
 
 
 class HumanAgent(Agent):
