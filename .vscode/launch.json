@@ -5,10 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Checkers Env Checker",
+            "name": "env_checker.py",
             "type": "python",
             "request": "launch",
             "program": "/home/q/workspace/boardgames/src/gym_checkers/env_checker.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "train_game.py",
+            "type": "python",
+            "request": "launch",
+            "program": "/home/q/workspace/boardgames/src/train_game.py",
             "console": "integratedTerminal"
         }
     ]

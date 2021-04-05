@@ -6,13 +6,15 @@ from gym_isolation.agents import RandomAgent as IsoRandomAgent, HumanAgent as Is
     TrainedAgent as IsoTrainedAgent
 from gym_tictictoe.agents import RandomAgent as TTTRandomAgent, HumanAgent as TTTHumanAgent, \
     TrainedAgent as TTTTrainedAgent
-
+from gym_checkers.agents import RandomAgent as CheckersRandomAgent, HumanAgent as CheckersHumanAgent, \
+    TrainedAgent as CheckersTrainedAgent
 from game_engine import GameEngine, default_mask_function, DefaultScores
 from gym_tictictoe.envs import TicTicToe
+from gym_checkers.envs import CheckersEnv
 
 ISO_ENV = 'isolation-v0'
 TTT_ENV = 'tictictoe-v0'
-
+CHE_ENV = 'checkers-v0'
 # # # # # # #
 #
 # SET THE ENV NAME HERE
@@ -20,7 +22,7 @@ TTT_ENV = 'tictictoe-v0'
 #
 # # # # # # #
 
-ENV_NAME = TTT_ENV 
+ENV_NAME = CHE_ENV 
 
 RL_ALGO = PPO
 TIMESTEPS = 100_000
@@ -46,6 +48,11 @@ games = {
         'human': TTTHumanAgent,
         'random': TTTRandomAgent,
         'trained': TTTTrainedAgent
+    },
+    CHE_ENV: {
+        'human': CheckersHumanAgent,
+        'random': CheckersRandomAgent,
+        'trained': CheckersTrainedAgent
     }
 }
 

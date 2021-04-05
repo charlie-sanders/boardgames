@@ -38,7 +38,7 @@ class HumanAgent(Agent):
             print('GAME OVER YOOU PROBABLY LOST')
             return 0
 
-        msg = f"\n\nEnter the 0-9 index of where to place the piece: ({valid}) - was {previous_action}"
+        msg = f"\n\nEnter the index of where to place the piece: ({valid}) - was {previous_action}"
         while not is_done:
             idx = int(input(msg))
             previous_action = env.get_previous_action(1)
